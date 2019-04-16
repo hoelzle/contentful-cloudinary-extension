@@ -1,5 +1,5 @@
 {
-  "name": "my-first-extension",
+  "name": "cloudinary-extension",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {

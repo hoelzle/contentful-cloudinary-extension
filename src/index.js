@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { TextInput } from '@contentful/forma-36-react-components';
+import { Cloudinary } from './cloudinary.js';
 import { init } from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import './index.css';
@@ -51,13 +52,16 @@ class App extends React.Component {
 
   render() {
     return (
-      <TextInput
-        width="large"
-        type="text"
-        id="my-field"
-        value={this.state.value}
-        onChange={this.onChange}
-      />
+      <div>
+        <TextInput
+          width="large"
+          type="text"
+          id="my-field"
+          value={this.state.value}
+          onChange={this.onChange}
+        />
+        <Cloudinary cl={cloudinary} sdk={this.props.sdk}/>
+      </div>
     );
   }
 }
