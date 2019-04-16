@@ -8,3 +8,7 @@ div {
   font: inherit;
   vertical-align: baseline;
 }
+.cms-container {
+  width: 100%;
+  min-height: 600px;
+}

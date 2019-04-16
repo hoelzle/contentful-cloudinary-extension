@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import { TextInput } from '@contentful/forma-36-react-components';
-import { Cloudinary } from './cloudinary.js';
+import { Button } from '@contentful/forma-36-react-components';
 import { init } from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import './index.css';
@@ -21,6 +20,18 @@ class App extends React.Component {
     };
   }
 
+  insertHandler = (data) => {
+    this.props.sdk.field.setValue(data.assets[0]);
+  }
+
+  show = () => {
+    this.mediaLibrary.show({ asset: this.state.value })
+  }
+
+  hide() {
+    this.mediaLibrary.hide()
+  }
+
   componentDidMount() {
     this.props.sdk.window.startAutoResizer();
 
@@ -28,6 +39,17 @@ class App extends React.Component {
     this.detachExternalChangeHandler = this.props.sdk.field.onValueChanged(
       this.onExternalChange
     );
+
+    this.mediaLibrary = this.props.cloudinary.createMediaLibrary(
+      {
+        cloud_name: 'hoelzle',
+        api_key: '181399756559722',
+        button_caption: 'Select Cloudinary Asset',
+        multiple: 'False',
+        max_files: 1
+      },
+      { insertHandler: this.insertHandler }
+    )
   }
 
   componentWillUnmount() {
@@ -53,21 +75,15 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <TextInput
-          width="large"
-          type="text"
-          id="my-field"
-          value={this.state.value}
-          onChange={this.onChange}
-        />
-        <Cloudinary cl={cloudinary} sdk={this.props.sdk}/>
+        <Button className='cloudinaryButton' buttonType='primary' onClick={ this.show }>Choose from Cloudinary</Button>
+        <div className="cms-container"></div>
       </div>
     );
   }
 }
 
 init(sdk => {
-  ReactDOM.render(<App sdk={sdk} />, document.getElementById('root'));
+  ReactDOM.render(<App sdk={sdk} cloudinary={cloudinary} />, document.getElementById('root'));
 });
 
 /**
