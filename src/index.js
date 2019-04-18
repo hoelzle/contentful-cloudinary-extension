@@ -10,9 +10,9 @@ import './index.css';
 class App extends React.Component {
   static propTypes = {
     sdk: PropTypes.object.isRequired,
-  };
+  }
 
-  detachExternalChangeHandler = null;
+  detachExternalChangeHandler = null
 
   constructor(props) {
     super(props);
@@ -23,7 +23,8 @@ class App extends React.Component {
   }
 
   insertHandler = (data) => {
-    this.props.sdk.field.setValue(data.assets[0]);
+    this.props.sdk.field.setValue(data.assets[0])
+    this.props.sdk.window.updateHeight()
     this.setState({ active: false })
   }
 
@@ -33,7 +34,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.props.sdk.window.startAutoResizer();
+    this.props.sdk.window.startAutoResizer()
 
     // Handler for external field value changes (e.g. when multiple authors are working on the same entry).
     this.detachExternalChangeHandler = this.props.sdk.field.onValueChanged(
@@ -54,22 +55,12 @@ class App extends React.Component {
 
   componentWillUnmount() {
     if (this.detachExternalChangeHandler) {
-      this.detachExternalChangeHandler();
+      this.detachExternalChangeHandler()
     }
   }
 
   onExternalChange = value => {
-    this.setState({ value });
-  };
-
-  onChange = e => {
-    const value = e.currentTarget.value;
-    this.setState({ value });
-    if (value) {
-      this.props.sdk.field.setValue(value);
-    } else {
-      this.props.sdk.field.removeValue();
-    }
+    this.setState({ value })
   };
 
   render() {
@@ -78,13 +69,13 @@ class App extends React.Component {
         <Button className='cloudinaryButton' buttonType='primary' onClick={ this.show }>Choose from Cloudinary</Button>
         <Preview asset={ this.state.value } />
       </div>
-    );
+    )
   }
 }
 
 init(sdk => {
-  ReactDOM.render(<App sdk={sdk} cloudinary={cloudinary} />, document.getElementById('root'));
-});
+  ReactDOM.render(<App sdk={sdk} cloudinary={cloudinary} />, document.getElementById('root'))
+})
 
 /**
  * By default, iframe of the extension is fully reloaded on every save of a source file.
