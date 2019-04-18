@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { Button } from '@contentful/forma-36-react-components';
 import { init } from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
+import { Preview } from './preview';
 import './index.css';
 
 class App extends React.Component {
@@ -17,19 +18,18 @@ class App extends React.Component {
     super(props);
     this.state = {
       value: props.sdk.field.getValue(),
+      active: false
     };
   }
 
   insertHandler = (data) => {
     this.props.sdk.field.setValue(data.assets[0]);
+    this.setState({ active: false })
   }
 
   show = () => {
+    this.setState({ active: true })
     this.mediaLibrary.show({ asset: this.state.value })
-  }
-
-  hide() {
-    this.mediaLibrary.hide()
   }
 
   componentDidMount() {
@@ -74,9 +74,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={`cloudinary-content ${this.state.active ? 'active' : ''}`}>
         <Button className='cloudinaryButton' buttonType='primary' onClick={ this.show }>Choose from Cloudinary</Button>
-        <div className="cms-container"></div>
+        <Preview asset={ this.state.value } />
       </div>
     );
   }

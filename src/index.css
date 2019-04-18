@@ -8,7 +8,9 @@ div {
   font: inherit;
   vertical-align: baseline;
 }
-.cms-container {
+.cloudinary-content {
   width: 100%;
+}
+.cloudinary-content.active {
   min-height: 600px;
 }
