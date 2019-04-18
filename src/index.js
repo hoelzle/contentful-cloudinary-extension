@@ -18,7 +18,11 @@ class App extends React.Component {
     super(props);
     this.state = {
       value: props.sdk.field.getValue(),
-      active: false
+      active: false,
+      settings: {
+        cloud_name: 'hoelzle',
+        api_key: '181399756559722'
+      }
     };
   }
 
@@ -41,10 +45,9 @@ class App extends React.Component {
       this.onExternalChange
     );
 
-    this.mediaLibrary = this.props.cloudinary.createMediaLibrary(
+    this.mediaLibrary = this.props.ml.createMediaLibrary(
       {
-        cloud_name: 'hoelzle',
-        api_key: '181399756559722',
+        ...this.state.settings,
         button_caption: 'Select Cloudinary Asset',
         multiple: 'False',
         max_files: 1
@@ -67,14 +70,14 @@ class App extends React.Component {
     return (
       <div className={`cloudinary-content ${this.state.active ? 'active' : ''}`}>
         <Button className='cloudinaryButton' buttonType='primary' onClick={ this.show }>Choose from Cloudinary</Button>
-        <Preview asset={ this.state.value } />
+        <Preview asset={ this.state.value } settings={ this.state.settings }/>
       </div>
     )
   }
 }
 
 init(sdk => {
-  ReactDOM.render(<App sdk={sdk} cloudinary={cloudinary} />, document.getElementById('root'))
+  ReactDOM.render(<App sdk={sdk} ml={cloudinary} />, document.getElementById('root'))
 })
 
 /**

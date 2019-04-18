@@ -14,3 +14,13 @@ div {
 .cloudinary-content.active {
   min-height: 600px;
 }
+.preview figure {
+  margin: 0;
+}
+.preview img {
+  display: block;
+  margin: 1rem auto;
+}
+.preview p {
+  text-align: center;
+}

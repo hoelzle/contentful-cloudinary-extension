@@ -1,4 +1,6 @@
 import React from 'react';
+import { HelpText } from '@contentful/forma-36-react-components';
+import '@contentful/forma-36-react-components/dist/styles.css';
 
 export class Preview extends React.Component {
   constructor(props) {
@@ -9,8 +11,11 @@ export class Preview extends React.Component {
   componentWillUnmount() {}
 
   url() {
-    if (!this.props.asset) return ''
-    return this.props.asset.secure_url
+    const { asset } = this.props;
+    if (!asset) return ''
+    const url = asset.secure_url
+    const preview_url = url.replace(/(.*upload)\/(.*)\.(\w+)/, '$1/w_300,h_300,c_limit,q_auto,f_auto/$2')
+    return preview_url
   }
 
   publicId() {
@@ -22,7 +27,7 @@ export class Preview extends React.Component {
     return (
       <figure className="preview">
         <img src={ this.url() } />
-        <figcaption>{ this.publicId() }</figcaption>
+        <HelpText>{ this.publicId() }</HelpText>
       </figure>
     );
   }
