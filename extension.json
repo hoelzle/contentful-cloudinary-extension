@@ -7,5 +7,21 @@
     "Symbols",
     "Text",
     "Object"
-  ]
+  ],
+  "parameters": {
+    "installation": [
+      {
+        "id": "cloud_name",
+        "type": "Symbol",
+        "name": "Your Cloudinary cloud name",
+        "required": true
+      },
+      {
+        "id": "api_key",
+        "type": "Symbol",
+        "name": "Your Cloudinary API key",
+        "required": true
+      }
+    ]
+  }
 }

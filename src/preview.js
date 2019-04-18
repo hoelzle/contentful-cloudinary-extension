@@ -1,6 +1,5 @@
 import React from 'react';
 import { HelpText } from '@contentful/forma-36-react-components';
-import '@contentful/forma-36-react-components/dist/styles.css';
 
 export class Preview extends React.Component {
   constructor(props) {

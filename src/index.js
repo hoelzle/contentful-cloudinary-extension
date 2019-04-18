@@ -19,10 +19,7 @@ class App extends React.Component {
     this.state = {
       value: props.sdk.field.getValue(),
       active: false,
-      settings: {
-        cloud_name: 'hoelzle',
-        api_key: '181399756559722'
-      }
+      settings: props.sdk.parameters.installation
     };
   }
 
@@ -34,7 +31,7 @@ class App extends React.Component {
 
   show = () => {
     this.setState({ active: true })
-    this.mediaLibrary.show({ asset: this.state.value })
+    this.mediaLibrary.show()
   }
 
   componentDidMount() {
@@ -48,7 +45,6 @@ class App extends React.Component {
     this.mediaLibrary = this.props.ml.createMediaLibrary(
       {
         ...this.state.settings,
-        button_caption: 'Select Cloudinary Asset',
         multiple: 'False',
         max_files: 1
       },
@@ -69,7 +65,7 @@ class App extends React.Component {
   render() {
     return (
       <div className={`cloudinary-content ${this.state.active ? 'active' : ''}`}>
-        <Button className='cloudinaryButton' buttonType='primary' onClick={ this.show }>Choose from Cloudinary</Button>
+        <Button onClick={ this.show }>Choose from Cloudinary</Button>
         <Preview asset={ this.state.value } settings={ this.state.settings }/>
       </div>
     )
