@@ -1,13 +1,8 @@
 {
   "id": "cloudinary-extension",
   "name": "cloudinary-extension",
-  "srcdoc": "./build/index.html",
-  "fieldTypes": [
-    "Symbol",
-    "Symbols",
-    "Text",
-    "Object"
-  ],
+  "src": "https://github.com/hoelzle/contentful-cloudinary-extension",
+  "fieldTypes": ["Object"],
   "parameters": {
     "installation": [
       {
