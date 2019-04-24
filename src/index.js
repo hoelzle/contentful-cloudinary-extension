@@ -6,6 +6,7 @@ import { init } from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import { Preview } from './preview';
 import './index.css';
+import { ErrorBoundary } from './error_boundary';
 
 class App extends React.Component {
   static propTypes = {
@@ -19,19 +20,19 @@ class App extends React.Component {
     this.state = {
       value: props.sdk.field.getValue(),
       active: false,
-      settings: props.sdk.parameters.installation
     };
+    this.settings = props.sdk.parameters.installation
   }
 
   insertHandler = (data) => {
-    this.props.sdk.field.setValue(data.assets[0])
+    this.props.sdk.field.setValue(data.assets)
     this.props.sdk.window.updateHeight()
     this.setState({ active: false })
   }
 
   show = () => {
-    this.setState({ active: true })
     this.mediaLibrary.show()
+    this.setState({ active: true })
   }
 
   componentDidMount() {
@@ -44,7 +45,7 @@ class App extends React.Component {
 
     this.mediaLibrary = this.props.ml.createMediaLibrary(
       {
-        ...this.state.settings,
+        ...this.settings,
         multiple: 'False',
         max_files: 1
       },
@@ -63,10 +64,13 @@ class App extends React.Component {
   };
 
   render() {
+    const settings = this.settings;
     return (
       <div className={`cloudinary-content ${this.state.active ? 'active' : ''}`}>
         <Button onClick={ this.show }>Choose from Cloudinary</Button>
-        <Preview asset={ this.state.value } settings={ this.state.settings }/>
+        <ErrorBoundary>
+          { this.state.value.map(a => <Preview asset={ a } settings={ settings }/>) }
+        </ErrorBoundary>
       </div>
     )
   }
