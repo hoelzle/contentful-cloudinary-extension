@@ -25,6 +25,7 @@
     "prestart": "contentful extension update --src http://localhost:1234 --force",
     "start": "contentful-extension-scripts start",
     "build": "contentful-extension-scripts build",
+    "build-compressed": "contentful-extension-scripts build --no-inline",
     "deploy": "npm run build && contentful extension update --force",
     "configure": "contentful space use && contentful space environment use",
     "login": "contentful login",

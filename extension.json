@@ -1,5 +1,5 @@
 {
-  "id": "cloudinary-extension",
+  "id": "cloudinary",
   "name": "Cloudinary Media Library",
   "src": "https://github.com/hoelzle/contentful-cloudinary-extension",
   "fieldTypes": ["Object"],

@@ -14,13 +14,22 @@ div {
 .cloudinary-content.active {
   min-height: 600px;
 }
-.preview figure {
-  margin: 0;
+figure.preview {
+  margin: 5px;
+  padding: 10px;
+  width: 250px;
+  height: 250px;
+  display: inline-block;
+  border: 1px solid #eee;
+
 }
 .preview img {
   display: block;
   margin: 1rem auto;
+  max-width: 80%;
+  max-height: 80%;
 }
+
 .preview p {
   text-align: center;
 }

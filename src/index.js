@@ -6,7 +6,6 @@ import { init } from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import { Preview } from './preview';
 import './index.css';
-import { ErrorBoundary } from './error_boundary';
 
 class App extends React.Component {
   static propTypes = {
@@ -26,13 +25,22 @@ class App extends React.Component {
 
   insertHandler = (data) => {
     this.props.sdk.field.setValue(data.assets)
-    this.props.sdk.window.updateHeight()
-    this.setState({ active: false })
+    this.setState({ value: data.assets, active: false })
   }
 
   show = () => {
     this.mediaLibrary.show()
     this.setState({ active: true })
+  }
+
+  assets() {
+    if (!this.state.value || !Array.isArray(this.state.value)) return []
+
+    return this.state.value
+  }
+
+  multiple() {
+    'True'
   }
 
   componentDidMount() {
@@ -46,11 +54,17 @@ class App extends React.Component {
     this.mediaLibrary = this.props.ml.createMediaLibrary(
       {
         ...this.settings,
-        multiple: 'False',
-        max_files: 1
+        multiple: this.multiple(),
+        max_files: null
       },
       { insertHandler: this.insertHandler }
     )
+
+    this.props.sdk.window.updateHeight()
+  }
+
+  componentDidUpdate() {
+    this.props.sdk.window.updateHeight()
   }
 
   componentWillUnmount() {
@@ -67,10 +81,10 @@ class App extends React.Component {
     const settings = this.settings;
     return (
       <div className={`cloudinary-content ${this.state.active ? 'active' : ''}`}>
+        <main>
+          { this.assets().map(a => <Preview asset={ a } settings={ settings }/>) }
+        </main>
         <Button onClick={ this.show }>Choose from Cloudinary</Button>
-        <ErrorBoundary>
-          { this.state.value.map(a => <Preview asset={ a } settings={ settings }/>) }
-        </ErrorBoundary>
       </div>
     )
   }
