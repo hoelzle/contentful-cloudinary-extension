@@ -1,7 +1,7 @@
 {
   "id": "cloudinary",
   "name": "Cloudinary Media Library Widget",
-  "src": "https://github.com/hoelzle/contentful-cloudinary-extension",
+  "src": "https://hoelzle.github.io/contentful-cloudinary-extension/build/index.html",
   "fieldTypes": ["Object"],
   "parameters": {
     "installation": [
