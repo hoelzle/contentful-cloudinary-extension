@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import { Button } from '@contentful/forma-36-react-components';
+import { Button, TextLink } from '@contentful/forma-36-react-components';
 import { init } from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import { Preview } from './preview';
@@ -24,14 +24,19 @@ class App extends React.Component {
   }
 
   insertHandler = (data) => {
-    this.props.sdk.field.setValue(data.assets[0])
-    this.props.sdk.window.updateHeight()
-    this.setState({ active: false })
+    this.props.sdk.field.setValue(data.assets[0]).then(data => {
+      this.props.sdk.window.startAutoResizer()
+      this.setState({ active: false })
+    })
   }
 
   show = () => {
     this.setState({ active: true })
     this.mediaLibrary.show()
+  }
+
+  clear = () => {
+    this.props.sdk.field.removeValue()
   }
 
   componentDidMount() {
@@ -63,9 +68,15 @@ class App extends React.Component {
   };
 
   render() {
+    let clearLink;
+    if (this.state.value) {
+      clearLink = <TextLink linkType='secondary' className='clear-link' onClick={ this.clear }>clear</TextLink>
+    }
+
     return (
       <div className={`cloudinary-content ${this.state.active ? 'active' : ''}`}>
         <Button onClick={ this.show }>Choose from Cloudinary</Button>
+        { clearLink }
         <Preview asset={ this.state.value } settings={ this.state.settings }/>
       </div>
     )
