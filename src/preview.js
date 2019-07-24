@@ -13,7 +13,7 @@ export class Preview extends React.Component {
     const { asset } = this.props;
     if (!asset) return ''
     const url = asset.secure_url
-    const preview_url = url.replace(/(.*upload)\/(.*)\.(\w+)/, '$1/w_600,h_600,c_limit/$2')
+    const preview_url = url.replace(/(.*upload)\/(.*)\.(\w+)/, '$1/w_600,h_600,c_limit,f_auto/$2')
     return preview_url
   }
 
